@@ -13,13 +13,13 @@
     <h1>Here u can see our stuf</h1>
     <ul>
         <li>
-            <a id="gca" href="#">GCA</a>
+            <a id="orf_scanner" href="#">Scann orf</a>
         </li>
         <li>
-            <a id="gcd" href="#">GCD</a>
+            <a id="will_be_soon" href="#">Will be soon</a>
         </li>
         <li>
-            <a id="gcc" href="#">GCC</a>
+            <a id="will_be_soon" href="#">Will be soon</a>
         </li>
     </ul>
     <script>if (window.module) module = window.module;</script>
@@ -32,7 +32,9 @@
         for (const _ of a) {
             _.addEventListener('click', function (e) {
                 //send the info to main process . we can pass any arguments as second param.
-                ipcRenderer.send("route", e);
+                console.log(e.target.id);
+
+                ipcRenderer.send("route", e.target.id);
             });
         }
     </script>
