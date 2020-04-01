@@ -8,9 +8,7 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 }
 
 //ipcMain.on will receive info from renderprocess 
-ipcMain.on("route", function (event, args) {
-  handleRouting(args);
-});
+ipcMain.on("route", (event, args) => handleRouting(args));
 
 app.on('ready', firstInit);
 
