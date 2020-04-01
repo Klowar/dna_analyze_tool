@@ -1,38 +1,25 @@
 import { BrowserWindow } from 'electron';
-import { createWindow } from './../view/welcome';
+import { createWindow } from './../view/welcome/index';
 
-const windows = new Map<string, BrowserWindow>();
+// const windows = new Map<string, BrowserWindow>();
+let currWindow: BrowserWindow = null;
 
 const displayStack = ["welcome"];
 
 export const handleRouting = async (name?: string): Promise<void> => {
     if (name === undefined) {
-        return windows.get(displayStack[displayStack.length - 1]).show();
+        return currWindow.show();
     }
 
-
-    let toDisplay = windows.get(name);
-    if (toDisplay === undefined) {
-        const module = await import(`../view/${name}/index.js`);
-        if (module === undefined) {
-            return;
-        }
-
-        // Create new window and cache it
-        toDisplay = module.default();
-        windows.set(
-            name,
-            toDisplay
-        );
-
+    const module = await import(`../view/${name}/index.js`);
+    if (module === undefined) {
+        return;
     }
-    windows.get(displayStack[displayStack.length - 1]).hide();
-    toDisplay.show();
+    currWindow = module.default();
     displayStack.push(name);
-
 }
 
 export const firstInit = (): void => {
-    windows.set("welcome", createWindow());
+    currWindow = createWindow();
     handleRouting();
 }
