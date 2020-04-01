@@ -14,7 +14,7 @@ export const createWindow = (): BrowserWindow => {
     // and load the index.html of the app.
     console.log(__dirname);
 
-    mainWindow.loadFile(path.join(__dirname, './welcome.html'));
+    mainWindow.loadFile(path.join(__dirname, './scanner.html'));
 
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
