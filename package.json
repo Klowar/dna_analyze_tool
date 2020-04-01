@@ -5,7 +5,9 @@
   "description": "My Electron application description",
   "main": "dist/index.js",
   "scripts": {
-    "start": "tsc && electron-forge start",
+    "start": "npm run build && electron-forge start",
+    "build": "rm -rf dist && tsc && npm run copyAssets",
+    "copyAssets": "node copyStaticAssets.js",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
