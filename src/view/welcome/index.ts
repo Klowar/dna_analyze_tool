@@ -3,7 +3,7 @@ import * as path from 'path';
 
 export const createWindow = (): BrowserWindow => {
     // Create the browser window.
-    const mainWindow = new BrowserWindow({
+    const window = new BrowserWindow({
         height: 600,
         width: 800,
         webPreferences: {
@@ -14,11 +14,9 @@ export const createWindow = (): BrowserWindow => {
     // and load the index.html of the app.
     console.log(__dirname);
 
-    mainWindow.loadFile(path.join(__dirname, './welcome.html'));
+    window.loadFile(path.join(__dirname, './welcome.html'));
 
-    // Open the DevTools.
-    mainWindow.webContents.openDevTools();
-    return mainWindow;
+    return window;
 };
 
 export default createWindow;
