@@ -1,18 +1,18 @@
-import { createWindow } from './view/welcome';
 import { app, BrowserWindow, ipcMain } from 'electron';
+import { firstInit, handleRouting } from './utils/window_util';
+import { createWindow } from './view/welcome';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
 }
 
-//ipcMain.on will receive the “btnclick” info from renderprocess 
-ipcMain.on("route", function (event) {
-  console.log(event);
-
+//ipcMain.on will receive info from renderprocess 
+ipcMain.on("route", function (event, args) {
+  handleRouting(args);
 });
 
-app.on('ready', createWindow);
+app.on('ready', firstInit);
 
 app.on('window-all-closed', () => {
   // if (process.platform !== 'darwin') {
