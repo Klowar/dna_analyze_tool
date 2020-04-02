@@ -34,3 +34,10 @@ export const stopCodonOnlyEndRule = (orf: string): boolean => {
         (_) => !stopCoddons.includes(_)
     );
 }
+
+export const allRules = (orf: string): boolean => {
+    return lengthRule(orf)
+        && startCoddonRule(orf)
+        && stopCoddonEndRule(orf)
+        && stopCodonOnlyEndRule(orf);
+}
