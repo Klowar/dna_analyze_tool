@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
+import { clearHandlers, loadHandlers } from './utils/handlers_util';
 import { firstInit, handleRouting } from './utils/window_util';
 import { createWindow } from './view/welcome';
 
@@ -8,7 +9,11 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 }
 
 //ipcMain.on will receive info from renderprocess 
-ipcMain.on("route", (event, args) => handleRouting(args));
+ipcMain.on("route", (event, args) => {
+  handleRouting(args);
+  clearHandlers(ipcMain);
+  loadHandlers(ipcMain, args);
+});
 
 app.on('ready', firstInit);
 
