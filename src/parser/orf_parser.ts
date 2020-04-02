@@ -3,12 +3,12 @@ import { START_CODDON, STOP_CODDON_DNA1, STOP_CODDON_DNA2, STOP_CODDON_DNA3, STO
 export const orfParser = (str: string): string[] => {
 
     const regs = [
-        new RegExp(`^${START_CODDON}.+${STOP_CODDON_DNA1}$`, "g"),
-        new RegExp(`^${START_CODDON}.+${STOP_CODDON_DNA2}$`, "g"),
-        new RegExp(`^${START_CODDON}.+${STOP_CODDON_DNA3}$`, "g"),
-        new RegExp(`^${START_CODDON}.+${STOP_CODDON_RNA1}$`, "g"),
-        new RegExp(`^${START_CODDON}.+${STOP_CODDON_RNA2}$`, "g"),
-        new RegExp(`^${START_CODDON}.+${STOP_CODDON_RNA3}$`, "g"),
+        new RegExp(`${START_CODDON}.+${STOP_CODDON_DNA1}`, "g"),
+        new RegExp(`${START_CODDON}.+${STOP_CODDON_DNA2}`, "g"),
+        new RegExp(`${START_CODDON}.+${STOP_CODDON_DNA3}`, "g"),
+        new RegExp(`${START_CODDON}.+${STOP_CODDON_RNA1}`, "g"),
+        new RegExp(`${START_CODDON}.+${STOP_CODDON_RNA2}`, "g"),
+        new RegExp(`${START_CODDON}.+${STOP_CODDON_RNA3}`, "g"),
     ];
 
     const orfs: string[][] = [];
