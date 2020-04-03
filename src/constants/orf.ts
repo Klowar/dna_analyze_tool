@@ -1,5 +1,6 @@
 // Any ORF start coddong
-export const START_CODDON = "AUG";
+export const START_CODDON_DNA = "ATG";
+export const START_CODDON_RNA = "AUG";
 // RNA stop codons
 export const STOP_CODDON_RNA1 = "UAA";
 export const STOP_CODDON_RNA2 = "UAG";
