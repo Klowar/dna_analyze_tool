@@ -11,15 +11,14 @@ const calculateLength = (percent: number, length: number): number => {
 
 const shake = (str: string): string => {
 
-    const arr = [];
+    const arr = [...str];
 
     for (let i = 0; i < str.length; i++) {
-        if (Math.random() > 0.5) {
-            arr.push(str[i]);
-        }
-        else {
-            arr.unshift(str[i])
-        }
+        const index = Math.round(Math.random() * str.length);
+        const index2 = Math.round(Math.random() * str.length);
+        const temp = arr[index];
+        arr[index] = arr[index2];
+        arr[index2] = temp;
     }
 
     return arr.join('');
