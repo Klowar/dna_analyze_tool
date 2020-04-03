@@ -1,11 +1,11 @@
-import { START_CODDON, STOP_CODDON_DNA1, STOP_CODDON_DNA2, STOP_CODDON_DNA3, STOP_CODDON_RNA1, STOP_CODDON_RNA2, STOP_CODDON_RNA3 } from './../constants/orf';
+import { START_CODDON_DNA, STOP_CODDON_DNA1, STOP_CODDON_DNA2, STOP_CODDON_DNA3, STOP_CODDON_RNA1, STOP_CODDON_RNA2, STOP_CODDON_RNA3 } from './../constants/orf';
 
 export const lengthRule = (orf: string): boolean => {
     return orf.length % 3 === 0;
 }
 
 export const startCoddonRule = (orf: string): boolean => {
-    return orf.startsWith(START_CODDON, 0);
+    return orf.startsWith(START_CODDON_DNA, 0);
 }
 
 export const stopCoddonEndRule = (orf: string): boolean => {
