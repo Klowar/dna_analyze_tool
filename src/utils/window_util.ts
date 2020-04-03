@@ -1,10 +1,10 @@
 import { BrowserWindow } from 'electron';
-import { createWindow } from './../view/welcome/index';
+import loadWelcomeWindow from './../view/welcome/index';
 
 // const windows = new Map<string, BrowserWindow>();
 let currWindow: BrowserWindow = null;
 
-const displayStack: number[] = [];
+const displayStack: string[] = [];
 
 export const handleRouting = async (name?: string): Promise<void> => {
     if (name === undefined) {
@@ -15,26 +15,39 @@ export const handleRouting = async (name?: string): Promise<void> => {
     if (module === undefined) {
         return;
     }
-    const temp: BrowserWindow = module.default();
-    currWindow.hide();
+    const temp: BrowserWindow = module.default(currWindow);
     currWindow = temp;
-    temp.show();
-    displayStack.push(currWindow.id);
+    displayStack.push(name);
 }
 
-export const firstInit = (): void => {
-    currWindow = createWindow();
-    displayStack.push(currWindow.id);
-    handleRouting();
-}
-
-export const openPrevWindow = (): void => {
-    displayStack.length -= 1;
-    const windows = BrowserWindow.getAllWindows();
-    const win = windows.find(_ => _.id === displayStack[displayStack.length - 1]);
-    if (win) win.show();
+export const createWindow = (): BrowserWindow => {
+    const win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true,
+            webSecurity: true,
+        }
+    })
+    return win;
 }
 
 export const closeAllWindows = (): void => {
     BrowserWindow.getAllWindows().forEach(_ => { if (_.id !== currWindow.id) _.destroy() });
+}
+
+export const openPrevWindow = (): void => {
+    if (displayStack.length > 1) {
+        displayStack.length -= 1;
+        handleRouting(displayStack[displayStack.length - 1]);
+    }
+}
+
+
+export const firstInit = (): void => {
+    currWindow = createWindow();
+    currWindow = loadWelcomeWindow(currWindow);
+    currWindow.on('close', () => closeAllWindows());
+    displayStack.push("welcome");
+    handleRouting();
 }
