@@ -1,24 +1,12 @@
 import { BrowserWindow } from 'electron';
 import * as path from 'path';
-import { closeAllWindows } from './../../utils/window_util';
 
-export const createWindow = (): BrowserWindow => {
+export const loadScannerWindow = (win: BrowserWindow): BrowserWindow => {
     // Create the browser window.
-    const window = new BrowserWindow({
-        height: 600,
-        width: 800,
-        webPreferences: {
-            nodeIntegration: true
-        },
-    });
 
-    window.on('close', () => closeAllWindows());
-    // and load the index.html of the app.
-    console.log(__dirname);
-
-    window.loadFile(path.join(__dirname, './scanner.html'));
+    win.loadFile(path.join(__dirname, './scanner.html'));
     // window.webContents.openDevTools();
-    return window;
+    return win;
 };
 
-export default createWindow;
+export default loadScannerWindow;
