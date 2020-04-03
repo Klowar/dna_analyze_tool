@@ -7,7 +7,6 @@ export const handleOrfSearch: HandlerType<string[]> = (event, ...args): Promise<
     return new Promise((res) => {
         const potentialOrf = orfParser(args[0]);
         const orfs = potentialOrf.filter(_ => _ && allRules(_));
-        console.log(orfs);
 
         res(orfs);
     })
