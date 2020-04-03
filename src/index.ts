@@ -1,7 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { clearHandlers, loadHandlers } from './utils/handlers_util';
-import { firstInit, handleRouting } from './utils/window_util';
-import { createWindow } from './view/welcome';
+import { createWindow, firstInit, handleRouting } from './utils/window_util';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require

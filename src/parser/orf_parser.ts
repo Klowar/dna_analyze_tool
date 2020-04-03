@@ -1,4 +1,4 @@
-import { START_CODDON_DNA, STOP_CODDON_DNA1, STOP_CODDON_DNA2, STOP_CODDON_DNA3, STOP_CODDON_RNA1, STOP_CODDON_RNA2, STOP_CODDON_RNA3 } from './../constants/orf';
+import { START_CODDON_DNA, STOP_CODDON_DNA1, STOP_CODDON_DNA2, STOP_CODDON_DNA3 } from './../constants/orf';
 
 
 const findSmallest = (str: string, prefix = START_CODDON_DNA): string[] => {
