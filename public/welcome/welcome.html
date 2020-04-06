@@ -4,40 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Dna analyze tool!</title>
-    <link rel="stylesheet" href="welcome.css">
 </head>
 
 <body>
-    <h1>💖 Hello !</h1>
-    <p>Welcome to DNA analyze tool.</p>
-    <h1>Here u can see our stuf</h1>
-    <ul>
-        <li>
-            <a id="orf_scanner" href="#">Scann orf</a>
-        </li>
-        <li>
-            <a id="will_be_soon" href="#">Will be soon</a>
-        </li>
-        <li>
-            <a id="will_be_soon" href="#">Will be soon</a>
-        </li>
-    </ul>
-    <script>if (window.module) module = window.module;</script>
-    <script type="text/javascript">
-
-        // include the ipc module to communicate with main process.
-        const ipcRenderer = require('electron').ipcRenderer;
-
-        const a = document.getElementsByTagName('a');
-        for (const _ of a) {
-            _.addEventListener('click', function (e) {
-                //send the info to main process . we can pass any arguments as second param.
-                console.log(e.target.id);
-
-                ipcRenderer.send("route", e.target.id);
-            });
-        }
-    </script>
+    <div id="root"></div>
 </body>
 
 </html>
