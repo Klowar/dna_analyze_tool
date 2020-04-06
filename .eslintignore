@@ -1,0 +1,8 @@
+# Builded
+dist
+build
+# Helper scripts
+copyStaticAssets
+# Configs
+webpack.config.js
+babel.config.js

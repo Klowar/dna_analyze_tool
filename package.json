@@ -5,13 +5,15 @@
   "description": "My Electron application description",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run build && electron-forge start",
-    "build": "rm -rf dist && tsc && npm run copyAssets",
-    "copyAssets": "node copyStaticAssets.js",
+    "start": "electron-forge start",
+    "build": "yarn build:ts && yarn build:views",
+    "build:ts": "tsc -p tsconfig-electron.json",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts .",
+    "build:views": "webpack",
+    "clean": "rm -rf dist",
     "test": "jest"
   },
   "repository": {
@@ -73,16 +75,25 @@
     "@electron-forge/maker-zip": "6.0.0-beta.50",
     "@types/jest": "^25.1.5",
     "@types/node": "12",
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
     "@typescript-eslint/eslint-plugin": "^2.18.0",
     "@typescript-eslint/parser": "^2.18.0",
     "babel-jest": "^25.2.6",
     "electron": "8.2.0",
     "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-react": "^7.19.0",
+    "html-webpack-plugin": "^4.0.4",
     "jest": "^25.2.7",
-    "typescript": "^3.7.0"
+    "ts-loader": "^6.2.2",
+    "typescript": "^3.7.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }
