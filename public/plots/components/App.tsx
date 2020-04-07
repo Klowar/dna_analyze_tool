@@ -8,18 +8,17 @@ export const App: React.FC = () => {
     const ref = useRef<HTMLCanvasElement>()
 
     useEffect(() => {
-        if (!ref.current && points.length === 0)
+        if (!ref.current && points.length !== 0)
             return;
-        console.log("Start drawing");
 
+        const probability = points.map(_ => _ / 10000);
         const canvas = ref.current;
         const context = ref.current.getContext('2d');
-        context.moveTo(0, 0);
         context.beginPath();
         const delta = canvas.width / points.length;
-        for (let i = 0, x = canvas.width / points.length; i < points.length - 1; i++, x += delta) {
-            context.lineTo(x, canvas.height - points[i] / canvas.height * 10);
-            context.moveTo(x, canvas.height - points[i] / canvas.height * 10);
+        for (let i = 0, x = canvas.width / points.length; i < probability.length - 1; i++, x += delta) {
+            context.lineTo(x, canvas.height * (1 - probability[i]));
+            context.moveTo(x, canvas.height * (1 - probability[i]));
         }
         context.stroke();
         return (): void => {
