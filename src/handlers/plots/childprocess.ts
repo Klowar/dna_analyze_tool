@@ -1,7 +1,7 @@
 import { Worker } from 'worker_threads';
 import path from 'path';
 
-const AMOUNT_RUNS = 100;
+const AMOUNT_RUNS = 10000;
 const ORF_RUN_LENGTH = 1000;
 
 const result = new Array<number>(81);
