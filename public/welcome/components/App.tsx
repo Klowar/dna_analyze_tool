@@ -8,7 +8,16 @@ export const App: React.FC = () => {
         <p>Welcome to DNA analyze tool.</p>
         <h1>Here u can see our stuf</h1>
 
-        <Link to={'orf_scanner'}>Open scanner</Link>
+        <div style={
+            {
+                display: 'flex',
+                flexDirection: 'column'
+            }
+        }>
+            <Link to={'orf_scanner'}>Open scanner</Link>
+            <Link to={'plots'}>Open plotter</Link>
+        </div>
+
     </div>
 }
 
