@@ -12,7 +12,14 @@ export const Generator: React.FC<GeneratorProps> = ({ update }) => {
     const [percentage, setPercentage] = useState<number>();
 
     return (
-        <div>
+        <div style={
+            {
+                display: 'flex',
+                flexDirection: 'column',
+                width: '30%',
+                padding: '1.5%'
+            }
+        }>
             <input
                 type="number"
                 onChange={(e): void => setLength(Number(e.target.value))}
