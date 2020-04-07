@@ -9,7 +9,7 @@ const calculateLength = (percent: number, length: number): number => {
     return Math.round(temp / 2 + side);
 }
 
-const shake = (str: string): string => {
+export const shakeOrfSeq = (str: string): string => {
 
     const arr = [...str];
 
@@ -24,13 +24,19 @@ const shake = (str: string): string => {
     return arr.join('');
 }
 
+export const generateRawOrfSeq = (len: number, percent: number): string => {
+    const gcLen = calculateLength(percent / 100, len);
+    const atLen = calculateLength(1 - percent / 100, len);
+    const orf = `${gc.repeat(gcLen)}${at.repeat(atLen)}`;
+    return orf;
+}
+
 export const handleOrfGeneration: HandlerType<string> = (event, ...args): Promise<string> => {
     return new Promise((res) => {
         const length = Number(args[0]);
         const gcPercentage = Number(args[1]);
-        const gcLen = calculateLength(gcPercentage / 100, length);
-        const atLen = calculateLength(1 - gcPercentage / 100, length);
-        const orf = `${gc.repeat(gcLen)}${at.repeat(atLen)}`;
-        res(shake(orf));
+        res(
+            shakeOrfSeq(generateRawOrfSeq(length, gcPercentage))
+        );
     })
 }
