@@ -9,3 +9,5 @@ export const STOP_CODDON_RNA3 = "UGA";
 export const STOP_CODDON_DNA1 = "TAA";
 export const STOP_CODDON_DNA2 = "TAG";
 export const STOP_CODDON_DNA3 = "TGA";
+// size
+export const CODDON_LENGTH = 3;
