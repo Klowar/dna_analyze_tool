@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link } from '../../shared';
 
 const ipcRenderer = window.require('electron').ipcRenderer;
 
@@ -28,6 +29,7 @@ export const App: React.FC = () => {
 
     return (
         <div>
+            <Link to={'welcome'}> back </Link>
             <div>
                 <button onClick={
                     (): void => ipcRenderer.invoke('plotOrf').then((data: number[]) => setPoints(data))}>
