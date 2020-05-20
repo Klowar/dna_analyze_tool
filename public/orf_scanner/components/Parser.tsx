@@ -1,21 +1,40 @@
-import React, { useState } from 'react'
 import PropTypes from 'prop-types';
-
-const ipcRenderer = window.require('electron').ipcRenderer;
+import React, { useState } from 'react';
+import { ipcRenderer } from '../../shared';
 
 type ParserProps = {
     orf: string;
 }
 
 const MINIMAL_ORF_SIZE = 10;
+const pairedTag = (s: string): string => {
+    switch (s) {
+        case "A":
+            return "T";
+        case "C":
+            return "G";
+        case "T":
+            return "A";
+        case "G":
+            return "C";
+    }
+}
+
+const reverse = (str: string): string => {
+    const arr = [...str];
+    const revArr = arr.reverse();
+
+    return revArr.map(_ => pairedTag(_)).join("");
+}
 
 export const Parser: React.FC<ParserProps> = ({ orf }) => {
 
-    const [scann, setScann] = useState<string[]>([]);
+    const revOrf = reverse(orf);
+    const [scann, setScann] = useState<[string[], string[]]>([[], []]);
 
     const onClick = (): void => {
         ipcRenderer.invoke('parseOrf', orf, MINIMAL_ORF_SIZE)
-            .then((result: string[]) => setScann(result));
+            .then((result: [string[], string[]]) => setScann(result));
     };
 
     return (
@@ -38,7 +57,26 @@ export const Parser: React.FC<ParserProps> = ({ orf }) => {
                 }
             }>
                 {scann && <p>Found orfs:</p>}
-                {scann.map(_ => (<p style={{ overflowWrap: 'break-word' }} key={_}>{_}</p>))}
+                {scann[0] && <p>Forward</p>}
+                {
+                    scann[0].map(_ => {
+                        const start = orf.indexOf(_);
+                        return <div key={_}>
+                            <p style={{ overflowWrap: 'break-word' }}>{_}</p>
+                            <p>{`${start} - ${start + _.length}`}</p>
+                        </div>;
+                    })
+                }
+                {scann[1] && <p>Backward</p>}
+                {
+                    scann[1].map(_ => {
+                        const start = revOrf.indexOf(_);
+                        return <div key={_}>
+                            <p style={{ overflowWrap: 'break-word' }}>{_}</p>
+                            <p>{`${start} - ${start + _.length}`}</p>
+                        </div>;
+                    })
+                }
             </div>
         </div>
     )

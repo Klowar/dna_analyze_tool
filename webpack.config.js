@@ -8,7 +8,8 @@ const workDir = path.resolve(__dirname, 'public');
 
 const listEntryes = () => {
     const temp = fs.readdirSync(workDir);
-    return temp;
+
+    return temp.filter(_ => _ !== 'shared');
 }
 
 const configureEntries = (entries) => {
