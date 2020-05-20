@@ -16,6 +16,7 @@ export const App: React.FC = () => {
         }>
             <Link to={'orf_scanner'}>Open scanner</Link>
             <Link to={'plots'}>Open plotter</Link>
+            <Link to={'newkick'}>Check newkick format</Link>
         </div>
 
     </div>

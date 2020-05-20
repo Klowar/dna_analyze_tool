@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from '../../shared';
-
-const ipcRenderer = window.require('electron').ipcRenderer;
+import { ipcRenderer, Link } from '../../shared';
 
 export const App: React.FC = () => {
 

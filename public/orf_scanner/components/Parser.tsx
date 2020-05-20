@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
 import PropTypes from 'prop-types';
-
-const ipcRenderer = window.require('electron').ipcRenderer;
+import React, { useState } from 'react';
+import { ipcRenderer } from '../../shared';
 
 type ParserProps = {
     orf: string;
