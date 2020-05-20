@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { ipcRenderer } from '.';
 
-const ipcRenderer = window.require('electron').ipcRenderer;
 
 export type LinkProps = {
     to: string;
@@ -11,7 +11,6 @@ export type LinkProps = {
 export const Link: React.FC<LinkProps> = ({ to, children }) => {
     const onClick = (): void => {
         ipcRenderer.send("route", to);
-
     }
     return <a onClick={onClick} href="#">{children}</a>
 }
