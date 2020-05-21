@@ -62,7 +62,7 @@ export const Parser: React.FC<ParserProps> = ({ orf }) => {
                     scann[0].map(_ => {
                         const start = orf.indexOf(_);
                         return <div key={_}>
-                            <p style={{ overflowWrap: 'break-word' }}>{_}</p>
+                            <p style={{ overflowWrap: 'break-word' }}>{_.match(/.{1,3}/g).join(" ")}</p>
                             <p>{`${start} - ${start + _.length}`}</p>
                         </div>;
                     })
@@ -72,7 +72,7 @@ export const Parser: React.FC<ParserProps> = ({ orf }) => {
                     scann[1].map(_ => {
                         const start = revOrf.indexOf(_);
                         return <div key={_}>
-                            <p style={{ overflowWrap: 'break-word' }}>{_}</p>
+                            <p style={{ overflowWrap: 'break-word' }}>{_.match(/.{1,3}/g).join(" ")}</p>
                             <p>{`${start} - ${start + _.length}`}</p>
                         </div>;
                     })
