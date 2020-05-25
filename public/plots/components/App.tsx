@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ipcRenderer, Link } from '../../shared';
 
 export const App: React.FC = () => {

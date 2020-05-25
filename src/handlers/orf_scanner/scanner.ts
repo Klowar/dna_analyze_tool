@@ -1,5 +1,5 @@
 import { CODDON_LENGTH } from './../../constants/orf';
-import { orfParser } from './../../parser/orf_parser';
+import { orfParser } from './../../parser/orf_parser_2';
 import { allRules } from './../../rule/orf_rules';
 import { HandlerType } from './../types';
 
