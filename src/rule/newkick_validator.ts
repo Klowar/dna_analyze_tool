@@ -2,25 +2,33 @@ const ROOT_END = ";";
 const NODE_START = "(";
 const NODE_END = ")";
 const NODE_SEPARATOR = ",";
+const LEAF_SEPARATOR = ":";
 // REGEXP
-const LEAF_REG_ONLY_DIGIT = /^:\d+$/i;
-const LEAF_REG_ONLY_NAME = /^[a-z]+$/i;
-const LEAF_REG_NAME_AND_DIGIT = /^[a-z]+:\d+$/i;
-const NODE_REG = /^\((.+)\)([a-z]+)?(:\d+)?$/i;
+const LEAF_REG_ONLY_DIGIT = /^:\d+(\.\d+)?$/i;
+const LEAF_REG_ONLY_NAME = /^[a-z]+\d*$/i;
+const LEAF_REG_NAME_AND_DIGIT = /^[a-z]+\d*:\d+(\.\d+)?$/i;
+const NODE_REG = /^\(?(.+)\)([a-z]+\d*)?(:\d+(\.\d+)?)?$/i;
+const AMOUNT_START = /\(/g;
+const AMOUNT_END = /\)/g;
 
+const layers: string[] = [];
 
 export const stickNodes = (arr: string[]): string[] => {
     const resArr: string[] = [];
-
-    for (let i = 0, tempArray = [], amount = 0; i < arr.length; i++) {
-        amount += arr[i].includes(NODE_START) ? 1 : 0;
-        amount -= arr[i].includes(NODE_END) ? 1 : 0;
+    let amount = 0;
+    for (let i = 0, tempArray = []; i < arr.length; i++) {
+        const start = arr[i].match(AMOUNT_START);
+        const end = arr[i].match(AMOUNT_END);
+        amount += start === null ? 0 : start.length;
+        amount -= end === null ? 0 : end.length;
         tempArray.push(arr[i]);
         if (arr[i].includes(NODE_END) && amount === 0) {
             resArr.push(tempArray.join(NODE_SEPARATOR));
             tempArray = [];
         }
+        if (amount < 0) throw new Error(`${tempArray.join(NODE_SEPARATOR)} braces not valid!`)
     }
+    if (amount !== 0) throw new Error(`${arr.join(NODE_SEPARATOR)} braces not valid!`)
     return resArr;
 };
 
@@ -35,6 +43,12 @@ export const leafRule = (leaf: string): void => {
     if (matchName === null && matchDigit === null && matchNameDigit === null)
         throw new Error(`${leaf} leaf wrong`);
 
+    const [name] = leaf.split(LEAF_SEPARATOR);
+    if (name) {
+        if (layers.includes(name))
+            throw new Error(`Duplicate name ${name}`);
+        layers.push(name);
+    }
 }
 
 export const handleNodeParse = (node: string): [string[], string[]] => {
@@ -64,6 +78,7 @@ export const nodesRule = (node: string): void => {
 /**  VALIDATOR ENTRY FUNCTION */
 
 export const newkickValidator = (data: string): void => {
+    layers.length = 0;
     data = data.trim();
 
     if (!data.endsWith(ROOT_END)) {

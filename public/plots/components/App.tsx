@@ -4,7 +4,9 @@ import { ipcRenderer, Link } from '../../shared';
 export const App: React.FC = () => {
 
     const [points, setPoints] = useState<number[]>([]);
-    const ref = useRef<HTMLCanvasElement>()
+    const [progress, setProgress] = useState<number>(0);
+    const ref = useRef<HTMLCanvasElement>();
+    ipcRenderer.once("progress", () => setProgress(progress + 1));
 
     useEffect(() => {
         if (!ref.current && points.length !== 0)
@@ -30,10 +32,16 @@ export const App: React.FC = () => {
             <Link to={'welcome'}> back </Link>
             <div>
                 <button onClick={
-                    (): void => ipcRenderer.invoke('plotOrf').then((data: number[]) => setPoints(data))}>
+                    (): void => {
+                        setProgress(1);
+                        ipcRenderer.invoke('plotOrf').then((data: number[]) => setPoints(data))
+                    }}>
                     Generate
-            </button>
+                </button>
             </div>
+            <div style={{
+                visibility: progress > 0 && progress < 100 ? "visible" : 'hidden'
+            }}>{progress} data proceded</div>
             <canvas ref={ref} width={600} height={400}></canvas>
         </div>
     );

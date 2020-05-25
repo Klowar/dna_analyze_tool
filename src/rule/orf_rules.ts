@@ -22,10 +22,7 @@ export const stopCodonOnlyEndRule = (orf: string): boolean => {
     const stopCoddons = [
         STOP_CODDON_DNA1,
         STOP_CODDON_DNA2,
-        STOP_CODDON_DNA3,
-        STOP_CODDON_RNA1,
-        STOP_CODDON_RNA2,
-        STOP_CODDON_RNA3
+        STOP_CODDON_DNA3
     ];
     const codons = orf.match(/.{1,3}/g);
     codons.pop();
@@ -36,6 +33,12 @@ export const stopCodonOnlyEndRule = (orf: string): boolean => {
 }
 
 export const allRules = (orf: string): boolean => {
+    console.group(orf);
+    console.log("leng", lengthRule(orf));
+    console.log("start", startCoddonRule(orf));
+    console.log("stop", stopCoddonEndRule(orf));
+    console.log("only", stopCodonOnlyEndRule(orf));
+    console.groupEnd();
     return lengthRule(orf)
         && startCoddonRule(orf)
         && stopCoddonEndRule(orf)
